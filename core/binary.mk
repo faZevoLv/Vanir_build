@@ -119,17 +119,18 @@ endif
 
 # Include custom gcc flags.  Seperate them so they can be easily managed.
 
-# arm thumb
-ifeq ($(strip $(ENABLE_ARM_THUMB_INTERWORK)),true)
-  ifneq ($(strip $(LOCAL_IS_HOST_MODULE)),true)
-    include $(BUILD_SYSTEM)/thumb_interwork.mk
-  endif
+# arm thumb, not used on the host compiler.
+ifneq ($(strip $(LOCAL_IS_HOST_MODULE)),true)
+  include $(BUILD_SYSTEM)/thumb_interwork.mk
 endif
 
 # O3
 ifeq ($(strip $(O3_OPTIMIZATIONS)),true)
   include $(BUILD_SYSTEM)/O3.mk
 endif
+
+# Add pthread support
+include $(BUILD_SYSTEM)/pthread.mk
 
 # Do not use graphite on host modules or the clang compiler.
 ifneq ($(strip $(LOCAL_IS_HOST_MODULE)),true)
