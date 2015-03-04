@@ -117,6 +117,22 @@ ifndef LOCAL_IS_HOST_MODULE
   endif
 endif
 
+# Include custom gcc flags.  Seperate them so they can be easily managed.
+
+# O3
+ifeq ($(strip $(O3_OPTIMIZATIONS)),true)
+  include $(BUILD_SYSTEM)/O3.mk
+endif
+
+# Do not use graphite on host modules or the clang compiler.
+ifneq ($(strip $(LOCAL_IS_HOST_MODULE)),true)
+  ifneq ($(strip $(LOCAL_CLANG)),true)
+
+    # If it gets this far enable graphite by default from here on out.
+    include $(BUILD_SYSTEM)/graphite.mk
+  endif
+endif
+
 # The following LOCAL_ variables will be modified in this file.
 # Because the same LOCAL_ variables may be used to define modules for both 1st arch and 2nd arch,
 # we can't modify them in place.

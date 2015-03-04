@@ -39,10 +39,10 @@
 MAXIMUM_OVERDRIVE           ?= true
 NO_DEBUG_SYMBOL_FLAGS       ?= true
 NO_DEBUG_FRAME_POINTERS     ?= true
-USE_GRAPHITE                ?=
+USE_GRAPHITE                ?= true
 USE_LTO                     ?= true
 USE_FSTRICT_FLAGS           ?= true
-USE_BINARY_FLAGS            ?=
+USE_BINARY_FLAGS            ?= true
 USE_EXTRA_CLANG_FLAGS       ?=
 ADDITIONAL_TARGET_ARM_OPT   ?=
 ADDITIONAL_TARGET_THUMB_OPT ?=
@@ -167,7 +167,30 @@ ifeq ($(USE_FSTRICT_FLAGS),true)
     third_party_WebKit_Source_core_webcore_generated_gyp \
     third_party_WebKit_Source_core_webcore_remaining_gyp \
     third_party_WebKit_Source_modules_modules_gyp \
-    third_party_WebKit_Source_platform_blink_platform_gyp
+    third_party_WebKit_Source_platform_blink_platform_gyp \
+    libdomx \
+    libOMX_Core \
+    libOMX.TI.DUCATI1.VIDEO.H264E \
+    libOMX.TI.DUCATI1.VIDEO.H264SVCE \
+    libOMX.TI.DUCATI1.VIDEO.VC1E \
+    libOMX.TI.DUCATI1.VIDEO.MPEG4E \
+    libOMX.TI.DUCATI1.VIDEO.DECODER \
+    libOMX.TI.DUCATI1.VIDEO.DECODER.secure \
+    libOMX.TI.DUCATI1.VIDEO.CAMERA \
+    libOMX.TI.DUCATI1.MISC.SAMPLE \
+    libstagefrighthw \
+    libI420colorconvert \
+    libtiutils \
+    libion_ti \
+    smc_pa_ctrl \
+    tf_daemon \
+    libtf_crypto_sst \
+    hwcomposer.omap4 \
+    libion.so \
+    pvrsrvinit \
+    libPVRScopeServices.so \
+    libcorkscrew \
+    libtee_client_api_driver
 
 # external/ffmpeg
   VANIR_FNO_STRICT_ALIASING_MODULES += \

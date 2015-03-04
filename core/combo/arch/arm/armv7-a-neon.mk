@@ -21,6 +21,7 @@ ifeq ($(strip $(TARGET_$(combo_2nd_arch_prefix)CPU_VARIANT)),cortex-a9)
 else
 ifneq (,$(filter cortex-a8 scorpion,$(TARGET_$(combo_2nd_arch_prefix)CPU_VARIANT)))
 	arch_variant_cflags := -mcpu=cortex-a8
+	arch_variant_ldflags := -Wl,--fix-cortex-a8 
 else
 ifeq ($(strip $(TARGET_$(combo_2nd_arch_prefix)CPU_VARIANT)),cortex-a7)
 	arch_variant_cflags := -mcpu=cortex-a7
@@ -35,5 +36,13 @@ arch_variant_cflags += \
     -mfloat-abi=softfp \
     -mfpu=neon
 
-arch_variant_ldflags := \
-	-Wl,--fix-cortex-a8
+# For cortex-a15 and armv8-a types, override -mfpu=neon with -mfpu=neon-vfpv4
+# Have the clang compiler ignore unknow flag option -mfpu=neon-vfpv4
+# Once ignored by clang, clang will default back to -mfpu=neon
+ifneq ($(filter $(CORTEX_A15_TYPE),$(TARGET_$(combo_2nd_arch_prefix)CPU_VARIANT)),)
+arch_variant_cflags += \
+    -mfpu=neon-vfpv4
+endif
+
+# Export cflags and cpu variant to the kernel.
+export kernel_arch_variant_cflags := $(arch_variant_cflags)
